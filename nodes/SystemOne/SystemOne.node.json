@@ -1,0 +1,17 @@
+{
+	"node": "n8n-nodes-system-one.systemOne",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["AI", "Development"],
+	"subcategories": {
+		"AI": ["Miscellaneous"]
+	},
+	"resources": {
+		"credentialDocumentation": [
+			{ "url": "https://github.com/diegohh0411/n8n-nodes-system-one?tab=readme-ov-file#credentials" }
+		],
+		"primaryDocumentation": [
+			{ "url": "https://github.com/diegohh0411/n8n-nodes-system-one?tab=readme-ov-file" }
+		]
+	}
+}

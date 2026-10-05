@@ -1,0 +1,63 @@
+{
+  "name": "n8n-nodes-system-one",
+  "version": "0.1.0",
+  "description": "n8n community node for System One decision models (Jev, Clef) via OpenRouter, TypeSafe, Cloudflare Workers AI, or any compatible endpoint",
+  "license": "MIT",
+  "homepage": "https://github.com/diegohh0411/n8n-nodes-system-one",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "system-one",
+    "jev",
+    "clef",
+    "typesafe",
+    "openrouter",
+    "cloudflare",
+    "decisions",
+    "classification"
+  ],
+  "author": {
+    "name": "Diego Hernández Herrera",
+    "email": "diegohh0411@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegohh0411/n8n-nodes-system-one.git"
+  },
+  "scripts": {
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease",
+    "test": "n8n-node build && node --test test/"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/TypeSafeApi.credentials.js",
+      "dist/credentials/SystemOneOpenRouterApi.credentials.js",
+      "dist/credentials/SystemOneCloudflareApi.credentials.js",
+      "dist/credentials/SystemOneCustomApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/SystemOne/SystemOne.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "*",
+    "eslint": "9.32.0",
+    "prettier": "3.6.2",
+    "release-it": "^19.0.4",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
