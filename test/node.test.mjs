@@ -45,7 +45,6 @@ function makeContext({ params, items, credentials, response = RESPONSE, binary }
 
 const baseParams = {
 	provider: 'openRouter',
-	openRouterSurface: 'decisions',
 	modelOpenRouter: '~typesafe/jev-latest',
 	stateSource: 'fields',
 	stateFields: { field: [{ name: 'ticket', value: 'Checkout is down' }, { name: 'meta', value: { tier: 'pro' } }] },
@@ -63,10 +62,10 @@ const baseParams = {
 	},
 	outputFormat: 'simplified',
 	confidenceRouting: false,
-	options: { sessionId: 'abc' },
+	options: {},
 };
 
-test('sends a System One request to OpenRouter decisions and simplifies the output', async () => {
+test('sends a System One request to OpenRouter and simplifies the output', async () => {
 	const { ctx, calls } = makeContext({
 		params: baseParams,
 		items: [{ json: { id: 1 } }],
@@ -74,7 +73,7 @@ test('sends a System One request to OpenRouter decisions and simplifies the outp
 	});
 	const [out] = await new SystemOne().execute.call(ctx);
 	const request = calls.find((c) => c.options).options;
-	assert.equal(request.url, 'https://openrouter.ai/api/alpha/decisions');
+	assert.equal(request.url, 'https://openrouter.ai/api/v1/systemone');
 	assert.equal(calls[0].credentialType, 'systemOneOpenRouterApi');
 	assert.deepEqual(request.body, {
 		model: '~typesafe/jev-latest',
@@ -83,7 +82,6 @@ test('sends a System One request to OpenRouter decisions and simplifies the outp
 			urgent: { type: 'noul', instructions: 'Is `ticket` urgent?' },
 			team: { type: 'choice', instructions: 'Which team?', criteria: { billing: null, technical: null } },
 		},
-		session_id: 'abc',
 	});
 	assert.equal(out.length, 1);
 	assert.equal(out[0].json.id, 1);
@@ -123,7 +121,6 @@ test('calls Cloudflare clef with images and unwraps the result envelope', async 
 	const request = calls.find((c) => c.options).options;
 	assert.equal(request.url, 'https://api.cloudflare.com/client/v4/accounts/acc/ai/run/@cf/cloudflare/clef');
 	assert.deepEqual(request.body.images, ['data:image/png;base64,cG5n']);
-	assert.equal(request.body.session_id, undefined);
 	assert.deepEqual(Object.keys(out[0].json).sort(), ['answers', 'model', 'usage']);
 });
 

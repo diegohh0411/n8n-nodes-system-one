@@ -1,3 +1,8 @@
 dist
 node_modules
 .n8n-dev-owner.local.json
+
+# Local agent skills (Superpowers), not part of the package
+.agents/skills/
+.claude/skills/
+skills-lock.json

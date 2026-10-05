@@ -14,8 +14,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 | Provider | Endpoint | Models |
 | - | - | - |
-| OpenRouter, Decisions API | `POST https://openrouter.ai/api/alpha/decisions` | `~typesafe/jev-latest`, `typesafe/jev-1.13` |
-| OpenRouter, System One API | `POST https://openrouter.ai/api/v1/systemone` | same |
+| OpenRouter | `POST https://openrouter.ai/api/v1/systemone` | `~typesafe/jev-latest`, `typesafe/jev-1.13` |
 | TypeSafe | `POST https://api.typesafe.ai/v1/systemone` | `jev-latest`, `jev-preview`, `jev-1.13.0` |
 | Cloudflare Workers AI | `POST https://api.cloudflare.com/client/v4/accounts/{id}/ai/run/@cf/cloudflare/clef` | `clef`, `clef-flash` |
 | Custom endpoint | any URL that accepts the System One request body | any |
@@ -33,7 +32,7 @@ Each provider has its own credential type:
 
 ## Usage
 
-1. **Credential, provider and model.** Choosing a credential also chooses the provider: n8n offers every System One credential in one dropdown, and when you create a new one, the provider picker sits in the credential dialog. The Model list (and, for OpenRouter, the Endpoint) then matches that provider. The canvas subtitle shows which provider is in use.
+1. **Credential, provider and model.** Choosing a credential also chooses the provider: n8n offers every System One credential in one dropdown, and when you create a new one, the provider picker sits in the credential dialog. The Model list then matches that provider. The canvas subtitle shows which provider is in use.
 2. **State.** Choose what the model evaluates:
    - *Whole Input Item*: the incoming item's JSON (the default).
    - *Define Fields*: build an object field by field. Expressions that return objects stay structured.
@@ -56,7 +55,6 @@ Each provider has its own credential type:
 | Include Input Fields | Keep the input item's fields in the output (default on). |
 | Noul Yes Threshold | The probability at or above which `<id>_yes` becomes `true` in simplified output. |
 | Image Binary Fields | Cloudflare only. Up to 4 PNG, JPEG or WebP binary fields, sent as `images`. |
-| Session ID / User | OpenRouter only. |
 | Extra Body Fields | JSON merged into the request body, e.g. OpenRouter `provider` preferences. |
 | Include Request | Add the request body that was sent to the output as `_request`, for debugging. |
 | Timeout | Request timeout in milliseconds. |

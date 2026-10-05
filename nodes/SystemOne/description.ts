@@ -12,7 +12,7 @@ export const endpointProperties: INodeProperties[] = [
 			{
 				name: 'OpenRouter',
 				value: 'openRouter',
-				description: 'Jev via OpenRouter, billed to your OpenRouter account',
+				description: 'Jev via OpenRouter (/api/v1/systemone), billed to your OpenRouter account',
 			},
 			{
 				name: 'TypeSafe',
@@ -32,26 +32,6 @@ export const endpointProperties: INodeProperties[] = [
 		],
 		default: 'openRouter',
 		description: 'Where to send the System One request',
-	},
-	{
-		displayName: 'Endpoint',
-		name: 'openRouterSurface',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: showFor(['openRouter']),
-		options: [
-			{
-				name: 'Decisions API',
-				value: 'decisions',
-				description: 'POST /api/alpha/decisions',
-			},
-			{
-				name: 'System One API',
-				value: 'systemOne',
-				description: 'POST /api/v1/systemone (TypeSafe-compatible)',
-			},
-		],
-		default: 'decisions',
 	},
 	{
 		displayName: 'Model',
@@ -505,14 +485,7 @@ export const optionProperties: INodeProperties[] = [
 				default: 'decision',
 				description: 'Field the result is written to. Leave empty to write the result at the top level.',
 			},
-			{
-				displayName: 'Session ID',
-				name: 'sessionId',
-				type: 'string',
-				default: '',
-				description: 'OpenRouter only: groups related requests for observability',
-				displayOptions: { show: { '/provider': ['openRouter'] } },
-			},
+
 			{
 				displayName: 'Timeout (Ms)',
 				name: 'timeout',
@@ -520,14 +493,7 @@ export const optionProperties: INodeProperties[] = [
 				typeOptions: { minValue: 1 },
 				default: 30000,
 			},
-			{
-				displayName: 'User',
-				name: 'user',
-				type: 'string',
-				default: '',
-				description: 'OpenRouter only: an identifier for your end user',
-				displayOptions: { show: { '/provider': ['openRouter'] } },
-			},
+
 		],
 	},
 ];

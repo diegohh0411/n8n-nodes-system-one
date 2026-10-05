@@ -228,8 +228,6 @@ export interface EndpointCredentials {
 	url?: string;
 }
 
-export type OpenRouterSurface = 'decisions' | 'systemOne';
-
 function trimSlash(url: string): string {
 	return url.replace(/\/+$/, '');
 }
@@ -238,15 +236,12 @@ export function resolveEndpoint(
 	provider: Provider,
 	model: string,
 	credentials: EndpointCredentials,
-	openRouterSurface: OpenRouterSurface = 'decisions',
 ): string {
 	switch (provider) {
 		case 'typeSafe':
 			return `${trimSlash(credentials.baseUrl || 'https://api.typesafe.ai')}/v1/systemone`;
-		case 'openRouter': {
-			const base = trimSlash(credentials.baseUrl || 'https://openrouter.ai');
-			return openRouterSurface === 'systemOne' ? `${base}/api/v1/systemone` : `${base}/api/alpha/decisions`;
-		}
+		case 'openRouter':
+			return `${trimSlash(credentials.baseUrl || 'https://openrouter.ai')}/api/v1/systemone`;
 		case 'cloudflare': {
 			if (!credentials.accountId) throw new UserError('The Cloudflare credential is missing the Account ID');
 			const slug = model.trim() === 'clef-flash' ? 'clef-flash' : 'clef';

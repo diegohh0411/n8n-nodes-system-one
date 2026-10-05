@@ -84,11 +84,7 @@ test('validates a raw questions map and Cloudflare question limit', () => {
 
 test('resolves endpoints per provider', () => {
 	assert.equal(r.resolveEndpoint('typeSafe', 'jev-latest', { baseUrl: 'https://api.typesafe.ai/' }), 'https://api.typesafe.ai/v1/systemone');
-	assert.equal(r.resolveEndpoint('openRouter', 'x', { baseUrl: 'https://openrouter.ai' }), 'https://openrouter.ai/api/alpha/decisions');
-	assert.equal(
-		r.resolveEndpoint('openRouter', 'x', { baseUrl: 'https://openrouter.ai' }, 'systemOne'),
-		'https://openrouter.ai/api/v1/systemone',
-	);
+	assert.equal(r.resolveEndpoint('openRouter', 'x', { baseUrl: 'https://openrouter.ai' }), 'https://openrouter.ai/api/v1/systemone');
 	assert.equal(
 		r.resolveEndpoint('cloudflare', 'clef-flash', { accountId: 'abc' }),
 		'https://api.cloudflare.com/client/v4/accounts/abc/ai/run/@cf/cloudflare/clef-flash',

@@ -23,7 +23,6 @@ import {
 	type EndpointCredentials,
 	type JsonValue,
 	MAX_IMAGES_CLOUDFLARE,
-	type OpenRouterSurface,
 	parseJson,
 	type Provider,
 	type QuestionUi,
@@ -56,9 +55,7 @@ interface NodeOptions {
 	includeRequest?: boolean;
 	noulThreshold?: number;
 	outputField?: string;
-	sessionId?: string;
 	timeout?: number;
-	user?: string;
 }
 
 export class SystemOne implements INodeType {
@@ -122,10 +119,6 @@ export class SystemOne implements INodeType {
 			try {
 				const model = (this.getNodeParameter(MODEL_PARAMETERS[provider], itemIndex) as string).trim();
 				const options = this.getNodeParameter('options', itemIndex, {}) as NodeOptions;
-				const openRouterSurface =
-					provider === 'openRouter'
-						? (this.getNodeParameter('openRouterSurface', itemIndex) as OpenRouterSurface)
-						: undefined;
 
 				const body: IDataObject = {
 					model,
@@ -133,10 +126,6 @@ export class SystemOne implements INodeType {
 					questions: getQuestions(this, itemIndex, provider) as unknown as IDataObject,
 				};
 
-				if (provider === 'openRouter') {
-					if (options.sessionId) body.session_id = options.sessionId;
-					if (options.user) body.user = options.user;
-				}
 				if (provider === 'cloudflare' && options.imageBinaryProperties) {
 					body.images = await getImages(this, itemIndex, options.imageBinaryProperties);
 				}
@@ -150,7 +139,7 @@ export class SystemOne implements INodeType {
 
 				const requestOptions: IHttpRequestOptions = {
 					method: 'POST',
-					url: resolveEndpoint(provider, model, credentials, openRouterSurface),
+					url: resolveEndpoint(provider, model, credentials),
 					body,
 					json: true,
 					timeout: options.timeout ?? 30000,
