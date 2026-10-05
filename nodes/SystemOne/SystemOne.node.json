@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-system-one.systemOne",
+	"node": "@diegohh0411/n8n-nodes-system-one.systemOne",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["AI", "Development"],

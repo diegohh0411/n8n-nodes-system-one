@@ -1,4 +1,4 @@
-# n8n-nodes-system-one
+# @diegohh0411/n8n-nodes-system-one
 
 An n8n community node for **System One** decision models: [TypeSafe's Jev](https://docs.typesafe.ai/concepts/system-one) and [Cloudflare's Clef](https://developers.cloudflare.com/workers-ai/models/clef/).
 
@@ -8,7 +8,7 @@ System One models take a **state** (text or JSON) and a set of typed **questions
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) and install `n8n-nodes-system-one`.
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) and install `@diegohh0411/n8n-nodes-system-one`.
 
 ## Providers
 
