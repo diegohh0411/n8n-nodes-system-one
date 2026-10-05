@@ -1,6 +1,6 @@
 {
   "name": "@diegohh0411/n8n-nodes-system-one",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "n8n community node for System One decision models (Jev, Clef) via OpenRouter, TypeSafe, Cloudflare Workers AI, or any compatible endpoint",
   "license": "MIT",
   "homepage": "https://github.com/diegohh0411/n8n-nodes-system-one",
