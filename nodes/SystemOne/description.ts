@@ -40,7 +40,7 @@ export const endpointProperties: INodeProperties[] = [
 		displayOptions: showFor(['openRouter']),
 		typeOptions: { loadOptionsMethod: 'getOpenRouterModels', loadOptionsDependsOn: ['provider'] },
 		default: '~typesafe/jev-latest',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
 		displayName: 'Model Name or ID',
@@ -58,7 +58,7 @@ export const endpointProperties: INodeProperties[] = [
 		displayOptions: showFor(['cloudflare']),
 		typeOptions: { loadOptionsMethod: 'getCloudflareModels', loadOptionsDependsOn: ['provider'] },
 		default: '@cf/cloudflare/clef',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
 		displayName: 'Model',
