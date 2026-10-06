@@ -16,6 +16,7 @@ import {
 	questionProperties,
 	stateProperties,
 } from './description';
+import { getCloudflareModels, getOpenRouterModels, getTypeSafeModels } from './listModels';
 import {
 	buildQuestions,
 	buildStateFromFields,
@@ -103,6 +104,10 @@ export class SystemOne implements INodeType {
 			...outputProperties,
 			...optionProperties,
 		],
+	};
+
+	methods = {
+		loadOptions: { getCloudflareModels, getOpenRouterModels, getTypeSafeModels },
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
