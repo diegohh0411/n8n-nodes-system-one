@@ -38,8 +38,6 @@ export function parseCloudflareModels(response: unknown): INodePropertyOptions[]
 		.sort(byName);
 }
 
-export const isSystemOneOpenRouterModel = (id: string) => /(^|~)typesafe\//.test(id);
-
 export async function getTypeSafeModels(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 	const credentials = (await this.getCredentials('typeSafeApi')) as EndpointCredentials;
 	const response = await this.helpers.httpRequestWithAuthentication.call(this, 'typeSafeApi', {
@@ -55,9 +53,11 @@ export async function getOpenRouterModels(this: ILoadOptionsFunctions): Promise<
 	const response = await this.helpers.httpRequestWithAuthentication.call(this, 'systemOneOpenRouterApi', {
 		method: 'GET',
 		url: `${trimSlash(credentials.baseUrl || 'https://openrouter.ai')}/api/v1/models`,
+		// System One models are listed by OpenRouter as "decisions" models.
+		qs: { output_modalities: 'decisions' },
 		json: true,
 	});
-	return parseModelList(response, isSystemOneOpenRouterModel);
+	return parseModelList(response);
 }
 
 export async function getCloudflareModels(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {

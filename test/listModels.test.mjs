@@ -5,9 +5,9 @@ import { test } from 'node:test';
 const require = createRequire(import.meta.url);
 const m = require('../dist/nodes/SystemOne/listModels.js');
 
-test('parses OpenAI-style model lists and filters OpenRouter to TypeSafe models', () => {
-	const response = { data: [{ id: 'openai/gpt-5' }, { id: 'typesafe/jev-1.13', name: 'Jev 1.13' }, { id: '~typesafe/jev-latest' }] };
-	assert.deepEqual(m.parseModelList(response, m.isSystemOneOpenRouterModel).map((o) => o.value), ['~typesafe/jev-latest', 'typesafe/jev-1.13']);
+test('parses OpenAI-style model lists', () => {
+	const response = { data: [{ id: 'typesafe/jev-1.13', name: 'Jev 1.13' }, { id: 'cloudflare/clef', name: 'Clef' }] };
+	assert.deepEqual(m.parseModelList(response).map((o) => o.value), ['cloudflare/clef', 'typesafe/jev-1.13']);
 	assert.deepEqual(m.parseModelList({}), []);
 });
 
@@ -26,4 +26,15 @@ test('fetches TypeSafe models through the credential base URL', async () => {
 	assert.equal(request.type, 'typeSafeApi');
 	assert.equal(request.options.url, 'https://api.example.com/v1/models');
 	assert.deepEqual(options.map((o) => o.value), ['jev-latest']);
+});
+
+test('fetches only decision models from OpenRouter', async () => {
+	let request;
+	const ctx = {
+		getCredentials: async () => ({}),
+		helpers: { httpRequestWithAuthentication: async (type, options) => ((request = options), { data: [{ id: 'liquid/d1' }] }) },
+	};
+	assert.deepEqual((await m.getOpenRouterModels.call(ctx)).map((o) => o.value), ['liquid/d1']);
+	assert.equal(request.url, 'https://openrouter.ai/api/v1/models');
+	assert.deepEqual(request.qs, { output_modalities: 'decisions' });
 });
