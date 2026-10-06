@@ -244,8 +244,9 @@ export function resolveEndpoint(
 			return `${trimSlash(credentials.baseUrl || 'https://openrouter.ai')}/api/v1/systemone`;
 		case 'cloudflare': {
 			if (!credentials.accountId) throw new UserError('The Cloudflare credential is missing the Account ID');
-			const slug = model.trim() === 'clef-flash' ? 'clef-flash' : 'clef';
-			return `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(credentials.accountId.trim())}/ai/run/@cf/cloudflare/${slug}`;
+			// Bare slugs (e.g. "clef") from older workflows map to the @cf/cloudflare namespace.
+			const name = model.trim().startsWith('@') ? model.trim() : `@cf/cloudflare/${model.trim()}`;
+			return `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(credentials.accountId.trim())}/ai/run/${name}`;
 		}
 		case 'custom':
 			if (!credentials.url) throw new UserError('The custom endpoint credential is missing the Endpoint URL');
